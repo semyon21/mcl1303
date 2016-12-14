@@ -1,0 +1,15 @@
+{%extends "main/base.html" %}
+
+{% block content %}
+  <p>Вы на сайте Московского Химического Лицея</p>
+  <p>Последние новости:</p>
+  <ul>
+    {% for item in items %}
+      <li>
+        <p><a href = "{% url 'main:item_info' item.id %}">{{item}}</a> - {{item.date_added}}</p>
+        
+      </li>
+      {% endfor %}
+  </ul>
+  
+{% endblock content %}

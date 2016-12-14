@@ -1,0 +1,15 @@
+<p>
+  <a href = "{% url 'main:index' %}">MCL</a> - 
+  
+  {% if user.is_authenticated %}
+    <a href = "{% url 'main:add_item' %}">Add news</a> -
+    <a href =  "{% url 'teacher:send_message' %}">Send message</a> -  
+    Здравствуйте, {{user.username}} - 
+    <a href = "{% url 'teacher:logout' %}">Logout</a>
+  {% else %}
+    ЛОХ
+  {% endif %}
+</p>
+
+
+{% block content %}{% endblock content%}

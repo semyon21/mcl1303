@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+  
+    <form method = 'post' action = "{% url 'teacher:send_message' %}">
+      {% csrf_token %}
+      {{form.as_p}}
+      <p>Введите тему</p>
+      <textarea name = "subject" cols = "40" rows = "3"></textarea>
+      <p>Введите текст сообщения</p>
+      <textarea name = "text" cols = "40" rows = "3"></textarea>
+      <p>Введи классы через пробел</p>
+      <textarea name = "form" cols = "">
+      
+      <button name = "submit">send</button>
+      <input type = "hidden" name = "next" value = "{% url 'main:index' %}"/>
+
+    </form>
+  {% else %}
+    <p>Oop! It seems that you're not logged in!</p>
+  {% endif %}
+
+{% endblock content %}
