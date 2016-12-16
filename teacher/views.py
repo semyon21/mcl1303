@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 import smtplib
 from main.models import Student
 from django.contrib.auth.decorators import login_required
+from email.mime.text import MIMEText
+from email.header import Header
 
 
 def logout_view(request):
@@ -42,7 +44,9 @@ def send_message(request):
             mail = smtplib.SMTP('smtp.gmail.com', 587)
             mail.starttls()
             mail.login('bmxtrialler@gmail.com', 'myman113S')
-            mail.sendmail('bmxtrialler@gmail.com', ['bmxtrialler@gmail.com', 'semyon21@inbox.ru'], "Subject: %s\n\n%s" % (sub, cont))
+            msg = MIMEText(cont, 'plain', 'utf-8')
+            msg['Subject'] = Header(sub, 'utf-8')
+            mail.sendmail('bmxtrialler@gmail.com', ['bmxtrialler@gmail.com', 'semyon21@inbox.ru'], msg.as_string)
             mail.quit()
             return HttpResponseRedirect(reverse('main:index'))
     return render(request, 'teacher/send_message.html', {'students': students})
