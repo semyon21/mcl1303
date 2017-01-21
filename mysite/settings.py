@@ -27,7 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/teacher/login/'
 
+BOOTSTRAP3 = {
+    'include_jquery' : True,
+    
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'teacher',
+    'bootstrap3',
+
 ]
 
 MIDDLEWARE = [
