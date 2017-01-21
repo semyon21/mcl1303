@@ -1,15 +1,44 @@
-<p>
-  <a href = "{% url 'main:index' %}">MCL</a> - 
-  
-  {% if user.is_authenticated %}
-    <a href = "{% url 'main:add_item' %}">Add news</a> -
-    <a href =  "{% url 'teacher:send_message' %}">Send message</a> -  
-    Здравствуйте, {{user.username}} - 
-    <a href = "{% url 'teacher:logout' %}">Logout</a>
-  {% else %}
-    ЛОХ
-  {% endif %}
-</p>
+{% load bootstrap3 %}
 
-
-{% block content %}{% endblock content%}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><a href="{% url 'main:index' %}">MCL</a></title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+          <a class="navbar-brand" href="{% url 'main:index' %}">Московский Химический лицей</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li><a>Здравствуйте, {{ user.username }}</a></li>
+              <li><a href="{% url 'main:add_item' %}">Создать новость</a></li>
+              <li><a href="{% url 'teacher:logout' %}">Выйти</a></li>
+            {% else %}
+              <li><a href="{% url 'teacher:login' %}">Войти</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="page-header">
+        {% block header %}{% endblock header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+    </div>
+  </body>
+</html>
