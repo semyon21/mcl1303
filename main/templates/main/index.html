@@ -1,15 +1,24 @@
-{%extends "main/base.html" %}
+{% extends "main/base.html" %}
+
+{% block header %}
+  <div class="jumbotron">
+    <h1>Последние новости лицея:</h1>
+  </div>
+{% endblock header %}
 
 {% block content %}
-  <p>Вы на сайте Московского Химического Лицея</p>
-  <p>Последние новости:</p>
-  <ul>
-    {% for item in items %}
-      <li>
-        <p><a href = "{% url 'main:item_info' item.id %}">{{item}}</a> - {{item.date_added}}</p>
-        
-      </li>
-      {% endfor %}
-  </ul>
-  
+  {% for item in items %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>
+          <a href="{% url 'main:item_info' item.id %}">{{ item.theme }}</a>
+          <small>{{ item.date_added|date:'M d, Y H:i' }}</small>
+        </h2>
+      </div>
+      <div class="panel-body">
+        <h4>{{ item }}</h4>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock content %}
+  
