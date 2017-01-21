@@ -1,14 +1,20 @@
-{%extends "main/base.html" %}
+{% extends "main/base.html" %}
+{% load bootstrap3 %}
 
-{% block content%}
-  {% if user.is_authenticated %}
-    <p>Add news</p>
-    <form action = "{% url 'main:add_item' %}" method="post">
-      {% csrf_token %}
-      {{form.as_p}}
-      <button name="submit">add news</button>
-    </form>
-  {% else %}
-    <p>Oops! It seems that you're not logged in</p>
-  {% endif %}
-{% endblock content%}
+{% block header %} 
+  <h2>Добавьте новость</h2>
+{% endblock header %}
+
+{% block content %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <form action="{% url 'main:add_item' %}" method="post" class="post-form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+          <button name="submit" class="btn btn-primary">add news</button>
+        {% endbuttons %}
+      </form>
+    </div>
+  </div>
+{% endblock content %}
